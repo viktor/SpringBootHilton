@@ -3,10 +3,12 @@ package com.hilton.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class GeoLocationDTO {
     private String query;
     private String status;
