@@ -6,6 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter @Setter @ToString
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,6 +18,7 @@ public class GeoLocation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String ipAddress;
+    private LocalDateTime savedTimeStamp;
 
     private String query;
     private String status;

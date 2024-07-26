@@ -12,6 +12,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 
 @Service
 public class GeoLocationService {
@@ -37,12 +40,13 @@ public class GeoLocationService {
         GeoLocationDTO dto = new GeoLocationDTO();
         GeoLocation geolocation = repository.findByIpAddress(ipAddress);
 
-        if(geolocation == null){
+        if(geolocation == null || (geolocation != null && isRecordOlderThan5min(geolocation))){
             dto = fromApi(ipAddress);
             geolocation = new GeoLocation();
             BeanUtils.copyProperties(dto, geolocation);
             geolocation.setIpAddress(ipAddress);
             geolocation.setId(null);
+            geolocation.setSavedTimeStamp(LocalDateTime.now());
 
             log.info("Saving new object in db {} ", geolocation);
             repository.save(geolocation);
@@ -53,5 +57,15 @@ public class GeoLocationService {
 
         return dto;
     }
+
+    public boolean isRecordOlderThan5min(GeoLocation geoLocation){
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime savedTime = geoLocation.getSavedTimeStamp();
+
+        long seconds = ChronoUnit.SECONDS.between(savedTime, now);
+        log.info("The seconds between saved geolocation object and now is : {}", seconds);
+        return seconds > 300;
+    }
+
 
 }
