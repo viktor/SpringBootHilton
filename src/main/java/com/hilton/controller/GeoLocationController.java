@@ -9,15 +9,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.regex.Pattern;
+
 
 @RestController
 public class GeoLocationController {
     private Logger log = LoggerFactory.getLogger(GeoLocationController.class);
     private @Autowired GeoLocationService service;
+    private String ipRegex = "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)(\\.(?!$)|$)){4}$";
 
     @GetMapping("/geolocation/{ipAddress}")
     public GeoLocationDTO retrieve(@PathVariable String ipAddress){
         log.info("In /geolocation/{} ", ipAddress);
+
+        if(!ipAddress.matches(ipRegex))
+            throw new RuntimeException("Invalid ipAddress");
+
         return service.get(ipAddress);
     }
 

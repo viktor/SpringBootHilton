@@ -1,0 +1,134 @@
+openapi: 3.0.3
+info:
+  title: Swagger Hilton GeoLocation - OpenAPI 3.0
+  description: |-
+    Hilton GeoLocation swagger v 1.0
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: vict.qp@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: https://hilton.geolocation.swagger.io/api/v3
+tags:
+  - name: GeoLocation
+    description: Operations about GeoLocation
+paths:
+  /geolocation/{ipAddress}:
+    get:
+      tags:
+        - findByIpAddress
+      summary: Get GeoLocation by ipAddress
+      description: ''
+      operationId: findByIpAddress
+      parameters:
+        - name: ipAddress
+          in: path
+          description: 'The apiAddress in 255.255.255.255 format'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              type: array
+              schema:
+                $ref: '#/components/schemas/GeoLocation'
+        '500':
+          description: Server Exception
+  /geolocation/fromapi/{ipAddress}:
+    post:
+      tags:
+        - fromApi
+      summary: finds GeoLocation fromApi call
+      description: finds GeoLocation from api
+      operationId: fromApi
+      parameters:
+        - name: ipAddress
+          in: path
+          description: 'ip address in format 255.255.255.255 '
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeoLocation'
+        '500':
+          description: Server Exception
+  /geolocation/fromdb/{ipAddress}:
+    post:
+      tags:
+        - fromDb
+      summary: finds GeoLocation from db
+      description: ''
+      operationId: fromDb
+      parameters:
+        - name: ipAddress
+          in: path
+          description: 'ip address in format 255.255.255.255 '
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeoLocation'
+        '500':
+          description: Server Exception
+components:
+  schemas:
+    GeoLocation:
+      type: object
+      properties:
+        query:
+          type: string
+        status:
+          type: string
+        countryCode:
+          type: string
+        country:
+          type: string
+        region:
+          type: string
+        regionName:
+          type: string
+        city:
+          type: string
+        zip:
+          type: string
+        timeZone:
+          type: string
+        lon:
+          type: float
+        lat:
+          type: float
+        isp:
+          type: string
+        org:
+          type: string
+  securitySchemes:
+    groceryStore_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://hilton.auth.swagger.io/oauth/authorize
+          scopes:
+            read:geoapi: read geo location information
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header

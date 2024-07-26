@@ -1,0 +1,69 @@
+{
+	"info": {
+		"_postman_id": "2f820e2f-436d-4b0e-835f-56f69848a99d",
+		"name": "SpringBoot Hilton",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11356696"
+	},
+	"item": [
+		{
+			"name": "fromApi",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/geolocation/fromapi/1.2.3.221",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"geolocation",
+						"fromapi",
+						"1.2.3.221"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fromDb",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/geolocation/fromdb/1.2.3.221",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"geolocation",
+						"fromdb",
+						"1.2.3.221"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/geolocation/1.1.12.123",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"geolocation",
+						"1.1.12.123"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

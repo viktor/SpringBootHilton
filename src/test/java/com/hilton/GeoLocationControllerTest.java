@@ -43,10 +43,17 @@ public class GeoLocationControllerTest extends Mockito {
     }
 
     @Test
-    public void fromApi(){
+    public void retrieve(){
         setup();
-        GeoLocationDTO dto = controller.fromApi("1.1.12.123");
+        GeoLocationDTO dto = controller.retrieve("1.1.12.123");
         Assertions.assertEquals("China", dto.getCountry());
     }
+
+    @Test
+    public void invalidIp(){
+        setup();
+        Assertions.assertThrows(RuntimeException.class, () -> controller.retrieve("1.1.12.256"));
+    }
+
 
 }
